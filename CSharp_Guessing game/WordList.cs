@@ -19,6 +19,7 @@ namespace CSharp_Guessing_game
         {
             var randomNumber = RandomObject.Next(Words.Length);
             var randomWord = Words[randomNumber];
+            Console.WriteLine("You got a new word!");
             return randomWord;
         }
 

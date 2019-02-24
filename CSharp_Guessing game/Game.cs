@@ -16,14 +16,34 @@ namespace CSharp_Guessing_game
             this.lettersAlreadyGuessed = new List<string>();
         }
 
-
-        public void GenerateWord()
+        public void StartGame()
         {
-            var randomWord = WordList.GetRandomWord();
-            Console.WriteLine(randomWord);
-            Console.WriteLine("You got a new word!");
-            Console.ReadLine();
+            SetNewWord();
+            SetUpGame();
 
-        }                               
+        }
+
+        public string GetGeneratedWord()
+        {   
+            return WordList.GetRandomWord();
+        }
+
+        private void SetNewWord()
+        {
+            var word = GetGeneratedWord();
+            newWord = new Word(word);
+        }
+
+        private void SetUpGame()
+        {
+            newWord.OrganizedWord();
+            newWord.DisplayCurrentWord();
+        }
+
+        private void TakePlayerGuess()
+        {
+            Console.WriteLine("Guess a letter");
+
+        }
     }
 }
