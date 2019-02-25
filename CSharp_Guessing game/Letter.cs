@@ -13,14 +13,14 @@
             IsLetterGuessed = false;
         }
 
-        public char GetLetterOrPlaceHolder()
+        public char GetLetter()
         {
             return IsLetterGuessed ? CurrentLetter: LetterPlaceHolder;
         }
 
         public void CheckGuess(char guess)
         {
-            if (CurrentLetter == guess)
+            if (CurrentLetter.Equals(guess))
             {
                 IsLetterGuessed = true;
             }

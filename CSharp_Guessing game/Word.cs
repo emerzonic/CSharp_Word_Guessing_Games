@@ -52,13 +52,12 @@ namespace CSharp_Guessing_game
             var tempString = new StringBuilder();
             foreach (var letter in Letters)
             {
-                var character = " " + letter.GetLetterOrPlaceHolder();
+                var character = " " + letter.GetLetter();
                 tempString.Append(character);
             }
 
             DisplayWord = tempString.ToString();
             Console.WriteLine(DisplayWord);
-            Console.ReadLine();
         }
 
         public void CheckWordStatus()
@@ -70,10 +69,15 @@ namespace CSharp_Guessing_game
             }
         }
 
-        private void CheckGuessStatus()
+        public void TakeGuess(char guess)
         {
-
+            foreach (var letter in Letters)
+            {
+                letter.CheckGuess(guess);
+            }
         }
+
+
 
 
     }
