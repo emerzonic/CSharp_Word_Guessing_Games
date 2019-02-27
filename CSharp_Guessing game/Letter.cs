@@ -13,7 +13,7 @@
             IsLetterGuessed = false;
         }
 
-        public char GetLetter()
+        public char GetLetterOrPlaceHolder()
         {
             return IsLetterGuessed ? CurrentLetter: LetterPlaceHolder;
         }

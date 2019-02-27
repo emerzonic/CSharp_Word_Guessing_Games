@@ -6,12 +6,13 @@ namespace CSharp_Guessing_game
 {
     public class Word
     {
-        private string CurrentWord { get; set; }
+        public string CurrentWord { get; set; }
         private Letter[] Letters { get; set; }
-        private bool IsWordGuessed { get; set; }
+        public bool IsWordGuessed { get; set; }
         private int GuessTracker { get; set; }
-        private int NumberOfAttempts { get; set; }
+        public int NumberOfAttempts { get; set; }
         private string DisplayWord { get; set; }
+        private int WordTracker { get; set; }
 
         public Word(string word)
         {
@@ -21,7 +22,10 @@ namespace CSharp_Guessing_game
             GuessTracker = 0;
             NumberOfAttempts = 0;
             DisplayWord = "";
+            WordTracker = 0;
         }
+
+     
 
         public void OrganizedWord()
         {
@@ -52,15 +56,16 @@ namespace CSharp_Guessing_game
             var tempString = new StringBuilder();
             foreach (var letter in Letters)
             {
-                var character = " " + letter.GetLetter();
+                var character = " " + letter.GetLetterOrPlaceHolder();
                 tempString.Append(character);
             }
 
             DisplayWord = tempString.ToString();
             Console.WriteLine(DisplayWord);
+            //Console.ReadLine();
         }
 
-        public void CheckWordStatus()
+        public void CheckWhetherWordIsGuessed()
         {
             if (!DisplayWord.Contains("_"))
             {
@@ -77,6 +82,61 @@ namespace CSharp_Guessing_game
             }
         }
 
+        internal void GetFeedBack()
+        {
+         
+            foreach(Letter letter in Letters)
+            {
+                if (!letter.GetLetterOrPlaceHolder().Equals('_'))
+                {
+                    WordTracker++;
+                }
+            }
+            CompareWord();
+        }
+
+        private void CompareWord()
+        {
+            if (GuessTracker != WordTracker)
+            {
+                GetCorrectFeedBack();
+            }
+            else
+            {
+                GetIncorrectFeedBack();
+            }
+            GetRemainingLetters();
+        }
+
+        private void GetCorrectFeedBack()
+        {
+            Console.WriteLine("\nCORRECT!");
+           // Console.ReadLine();
+        }
+
+        private void GetIncorrectFeedBack()
+        {
+            NumberOfAttempts--;
+            Console.WriteLine("\nINCORRECT!");
+            //Console.ReadLine();
+            var attemptText = GetSingularOrPluralText(NumberOfAttempts,"attempt");
+            Console.WriteLine($"You have {NumberOfAttempts} {attemptText} remaining.");
+            //Console.ReadLine();
+        }
+
+        private void GetRemainingLetters()
+        {
+            int remainingLetters = CurrentWord.Length - WordTracker;
+            string lettersText = GetSingularOrPluralText(remainingLetters, "letter");
+            Console.WriteLine($"You have {remainingLetters} {lettersText} more to guess.");
+            //Console.ReadLine();
+        }
+
+        private string GetSingularOrPluralText(int number, string word)
+        {
+            return number >= 2 ? word + "s" : word;
+    
+        }
 
 
 

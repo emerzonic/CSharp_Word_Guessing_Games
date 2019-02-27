@@ -15,19 +15,25 @@ namespace CSharp_Guessing_game
 
         public Game()
         {
-            this._score = 0;
-            this._lettersAlreadyGuessed = new List<char>();
+            _score = 0;
+            _lettersAlreadyGuessed = new List<char>();
         }
 
-        public void PlayGame()
+        public void StartGame()
         {
             SetNewWord();
             SetUpGame();
+            PlayGame();
+        }
+
+        private void PlayGame()
+        {
             TakePlayerGuess();
             CheckUserGuess();
             _newWord.TakeGuess(_guess);
+            _newWord.GetFeedBack();
             _newWord.DisplayCurrentWord();
-            Console.ReadLine();
+            CheckGameStatus();
         }
 
         public string GetGeneratedWord()
@@ -58,7 +64,8 @@ namespace CSharp_Guessing_game
         {
              if (!char.IsLetter(userInput))
             {
-                Console.WriteLine($"{userInput} is not a valid guess.");
+                Console.WriteLine($"\n{userInput} is not a valid guess.");
+               // Console.ReadLine();
                 TakePlayerGuess();
             }
              this._guess = char.ToLower(userInput);
@@ -69,10 +76,35 @@ namespace CSharp_Guessing_game
             if (_lettersAlreadyGuessed.Contains(_guess))
             {
                 Console.WriteLine($"You have already guessed {_guess}. Try again.");
+                var test = string.Join(",", _lettersAlreadyGuessed);
                 Console.WriteLine($"Letters already guessed: {string.Join(",", _lettersAlreadyGuessed)}.");
                 TakePlayerGuess();
             }
             _lettersAlreadyGuessed.Add(_guess);
+        }
+
+        private void CheckGameStatus()
+        {
+            if (_newWord.IsWordGuessed)
+            {
+                _score++;
+                Console.WriteLine($"Your score is {_score}");
+                _lettersAlreadyGuessed.Clear();
+                PlayGame();
+            }
+            else
+            {
+                if (_newWord.NumberOfAttempts <= 0)
+                {
+                    Console.WriteLine($"GAME OVER \n The word was {_newWord.CurrentWord}");
+
+
+                }
+                else
+                {
+                    PlayGame();
+                }
+            }
         }
 
 

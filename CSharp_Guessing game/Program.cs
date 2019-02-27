@@ -6,7 +6,7 @@ namespace CSharp_Guessing_game
     {
         static void Main(string[] args)
         {
-            new Game().PlayGame();
+            new Game().StartGame();
         }
     }
 }
