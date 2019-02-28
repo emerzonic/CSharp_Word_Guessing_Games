@@ -7,7 +7,8 @@ namespace CSharp_Guessing_game
 {
     public class WordList
     {
-        private static readonly Random RandomObject = new Random();
+        private static readonly Random randomObj = new Random();
+
         private static readonly string[] Words =
         {
             "cat",
@@ -17,11 +18,10 @@ namespace CSharp_Guessing_game
 
         public static string GetRandomWord()
         {
-            var randomNumber = RandomObject.Next(Words.Length);
+            var randomNumber = randomObj.Next(Words.Length);
             var randomWord = Words[randomNumber];
             Console.WriteLine("You got a new word!");
             return randomWord;
         }
-
     }
 }

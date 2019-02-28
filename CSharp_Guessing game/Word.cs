@@ -7,12 +7,12 @@ namespace CSharp_Guessing_game
     public class Word
     {
         public string CurrentWord { get; set; }
-        private Letter[] Letters { get; set; }
+        public Letter[] Letters { get; set; }
         public bool IsWordGuessed { get; set; }
-        private int GuessTracker { get; set; }
+        public int GuessTracker { get; set; }
         public int NumberOfAttempts { get; set; }
-        private string DisplayWord { get; set; }
-        private int WordTracker { get; set; }
+        public string DisplayWord { get; set; }
+        public int WordTracker { get; set; }
 
         public Word(string word)
         {
