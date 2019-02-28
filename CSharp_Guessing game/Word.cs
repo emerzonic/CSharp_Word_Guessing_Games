@@ -88,9 +88,7 @@ namespace CSharp_Guessing_game
             foreach(Letter letter in Letters)
             {
                 if (!letter.GetLetterOrPlaceHolder().Equals('_'))
-                {
                     WordTracker++;
-                }
             }
             CompareWord();
             GuessTracker = WordTracker;
@@ -99,13 +97,9 @@ namespace CSharp_Guessing_game
         private void CompareWord()
         {
             if (GuessTracker != WordTracker)
-            {
                 GetCorrectFeedBack();
-            }
             else
-            {
                 GetIncorrectFeedBack();
-            }
             GetRemainingLetters();
         }
 
@@ -134,8 +128,5 @@ namespace CSharp_Guessing_game
         {
             return number >= 2 ? word + "s" : word;
         }
-
-
-
     }
 }

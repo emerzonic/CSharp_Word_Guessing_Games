@@ -21,9 +21,7 @@
         public void CheckGuess(char guess)
         {
             if (CurrentLetter.Equals(guess))
-            {
                 IsLetterGuessed = true;
-            }
         }
    
     }
