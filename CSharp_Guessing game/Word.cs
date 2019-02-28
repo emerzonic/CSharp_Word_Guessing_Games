@@ -62,10 +62,10 @@ namespace CSharp_Guessing_game
 
             DisplayWord = tempString.ToString();
             Console.WriteLine(DisplayWord);
-            //Console.ReadLine();
+            CheckWhetherWordIsGuessed();
         }
 
-        public void CheckWhetherWordIsGuessed()
+        private void CheckWhetherWordIsGuessed()
         {
             if (!DisplayWord.Contains("_"))
             {
@@ -84,7 +84,7 @@ namespace CSharp_Guessing_game
 
         internal void GetFeedBack()
         {
-         
+            WordTracker = 0;
             foreach(Letter letter in Letters)
             {
                 if (!letter.GetLetterOrPlaceHolder().Equals('_'))
@@ -93,6 +93,7 @@ namespace CSharp_Guessing_game
                 }
             }
             CompareWord();
+            GuessTracker = WordTracker;
         }
 
         private void CompareWord()
@@ -111,17 +112,15 @@ namespace CSharp_Guessing_game
         private void GetCorrectFeedBack()
         {
             Console.WriteLine("\nCORRECT!");
-           // Console.ReadLine();
+            GuessTracker = WordTracker;
         }
 
         private void GetIncorrectFeedBack()
         {
             NumberOfAttempts--;
             Console.WriteLine("\nINCORRECT!");
-            //Console.ReadLine();
             var attemptText = GetSingularOrPluralText(NumberOfAttempts,"attempt");
             Console.WriteLine($"You have {NumberOfAttempts} {attemptText} remaining.");
-            //Console.ReadLine();
         }
 
         private void GetRemainingLetters()
@@ -129,13 +128,11 @@ namespace CSharp_Guessing_game
             int remainingLetters = CurrentWord.Length - WordTracker;
             string lettersText = GetSingularOrPluralText(remainingLetters, "letter");
             Console.WriteLine($"You have {remainingLetters} {lettersText} more to guess.");
-            //Console.ReadLine();
         }
 
         private string GetSingularOrPluralText(int number, string word)
         {
             return number >= 2 ? word + "s" : word;
-    
         }
 
 

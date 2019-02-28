@@ -65,7 +65,6 @@ namespace CSharp_Guessing_game
              if (!char.IsLetter(userInput))
             {
                 Console.WriteLine($"\n{userInput} is not a valid guess.");
-               // Console.ReadLine();
                 TakePlayerGuess();
             }
              this._guess = char.ToLower(userInput);
@@ -75,7 +74,7 @@ namespace CSharp_Guessing_game
         {
             if (_lettersAlreadyGuessed.Contains(_guess))
             {
-                Console.WriteLine($"You have already guessed {_guess}. Try again.");
+                Console.WriteLine($"\nYou have already guessed {_guess}. Try again.");
                 var test = string.Join(",", _lettersAlreadyGuessed);
                 Console.WriteLine($"Letters already guessed: {string.Join(",", _lettersAlreadyGuessed)}.");
                 TakePlayerGuess();
@@ -90,23 +89,31 @@ namespace CSharp_Guessing_game
                 _score++;
                 Console.WriteLine($"Your score is {_score}");
                 _lettersAlreadyGuessed.Clear();
-                PlayGame();
+                StartGame();
             }
             else
             {
                 if (_newWord.NumberOfAttempts <= 0)
                 {
                     Console.WriteLine($"GAME OVER \n The word was {_newWord.CurrentWord}");
-
-
+                    ResetGame();
                 }
                 else
-                {
                     PlayGame();
-                }
             }
         }
 
-
+        private void ResetGame()
+        {
+            Console.WriteLine("Would you like to play again? y/n");
+            var response = Console.ReadKey().KeyChar;
+            if (char.ToLower(response).Equals('y'))
+            {
+                _lettersAlreadyGuessed.Clear();
+                StartGame();
+            }
+            else
+                Environment.Exit(0);
+        }
     }
 }
